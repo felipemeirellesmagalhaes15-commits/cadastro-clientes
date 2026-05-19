@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Cadastro Clientes</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0">      
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Cadastro de Clientes</h1>
+
+    <form method="POST">
+
+        <label>Data</label>
+        <input type="date"
+       name="data"
+       value="{{ data_atual }}"
+       required>
+
+        <label>Razão Social</label>
+        <input type="text" name="razao_social" required>
+
+        <label>CNPJ / CPF</label>
+        <input type="text" name="cnpj" required>
+
+        <label>Inscrição Estadual</label>
+        <input type="text" name="ins_estadual">
+
+        <label>Data Nascimento</label>
+        <input type="date" name="data_nascimento" required>
+
+        <label>CEP</label>
+        <input type="text" name="cep">
+
+        <label>Endereço</label>
+        <input type="text" name="endereco" required>
+
+        <label>Bairro - Município / RJ</label>
+        <input type="text" name="bairro" required>
+
+        <label>Telefone</label>
+        <input type="text" name="telefone" required>
+
+        <label>Contato</label>
+        <input type="text" name="contato">
+
+        <label>Email</label>
+        <input type="text" name="email" required>
+
+        <label>Ponto de Referência</label>
+        <input type="text" name="referencia">
+
+        <label>Prazo Pagamento</label>
+        <input type="text" name="prazo" required>  
+
+        <label>Posição</label>
+        <input type="text" name="posicao">
+
+        <label>Destino Carro</label>
+        <input type="text" name="destino" required>
+
+        <label>Pedido</label>
+        <textarea name="pedido" rows="4"></textarea>
+
+        <label>Representante</label>
+        <select name="representante" required>
+
+    <option value="">Selecione</option>
+
+    <option>SIDNEY</option>
+    <option>MARIANGELA</option>
+    <option>THIAGO</option>
+    <option>SILVIO</option>
+    <option>MAYCON</option>
+    <option>SERGIO</option>
+    <option>FRANCISCO</option>
+    <option>KELLY</option>
+    <option>ANSELMO</option>
+    <option>KELLY BANGU</option>
+    <option>ANGELA</option>
+    <option>GELSON</option>
+    <option>RENATO LOPES</option>
+    <option>JOSE REINALDO</option>
+    <option>RICARDO</option>
+    </select>
+
+
+        <button type="submit">
+            Salvar Cadastro
+        </button>
+
+    <form method="POST">
+
+</div>
+
+</body>
+</html>
