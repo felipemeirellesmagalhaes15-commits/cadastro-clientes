@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 
     <meta charset="UTF-8">
@@ -9,46 +10,71 @@
     <style>
 
         body{
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             background:#f4f4f4;
-            padding:20px;
+            padding:25px;
         }
 
         h1{
             color:#ff6600;
+            margin-bottom:20px;
+            font-size:32px;
         }
 
         .botao{
             background:#ff6600;
             color:white;
-            padding:12px 20px;
+            padding:14px 22px;
             text-decoration:none;
-            border-radius:5px;
+            border-radius:6px;
             display:inline-block;
-            margin-bottom:20px;
+            margin-bottom:25px;
+            font-weight:bold;
+            font-size:14px;
+        }
+
+        .tabela-container{
+            overflow-x:auto;
+            background:white;
+            border-radius:10px;
+            padding:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
         }
 
         table{
             width:100%;
             border-collapse:collapse;
             background:white;
-            font-size:12px;
-        }
-
-        th, td{
-            border:1px solid #ccc;
-            padding:8px;
-            text-align:left;
+            font-size:14px;
+            min-width:2200px;
         }
 
         th{
             background:#ff6600;
             color:white;
+            padding:16px;
+            text-align:left;
+            font-size:14px;
+            white-space:nowrap;
+        }
+
+        td{
+            border-bottom:1px solid #ddd;
+            padding:14px;
+            text-align:left;
+            vertical-align:top;
+            white-space:nowrap;
+            font-size:13px;
+        }
+
+        tr:hover{
+            background:#fff4ec;
         }
 
     </style>
 
 </head>
+
 <body>
 
     <h1>Relatório de Cadastros</h1>
@@ -57,57 +83,62 @@
         EXPORTAR PDF
     </a>
 
-    <table>
+    <div class="tabela-container">
 
-        <tr>
+        <table>
 
-            <th>DATA</th>
-            <th>RAZÃO SOCIAL</th>
-            <th>CNPJ</th>
-            <th>INS ESTADUAL</th>
-            <th>DATA NASC</th>
-            <th>CEP</th>
-            <th>ENDEREÇO</th>
-            <th>BAIRRO</th>
-            <th>TELEFONE</th>
-            <th>CONTATO</th>
-            <th>EMAIL</th>
-            <th>PONTO REFERÊNCIA</th>
-            <th>PRAZO</th>
-            <th>REPRESENTANTE</th>
-            <th>POSIÇÃO</th>
-            <th>DESTINO</th>
-            <th>PEDIDO</th>
+            <tr>
 
-        </tr>
+                <th>DATA</th>
+                <th>RAZÃO SOCIAL</th>
+                <th>CNPJ</th>
+                <th>INS ESTADUAL</th>
+                <th>DATA NASC</th>
+                <th>CEP</th>
+                <th>ENDEREÇO</th>
+                <th>BAIRRO</th>
+                <th>TELEFONE</th>
+                <th>CONTATO</th>
+                <th>EMAIL</th>
+                <th>PONTO REFERÊNCIA</th>
+                <th>PRAZO</th>
+                <th>REPRESENTANTE</th>
+                <th>POSIÇÃO</th>
+                <th>DESTINO</th>
+                <th>PEDIDO</th>
 
-        {% for cliente in clientes %}
+            </tr>
 
-        <tr>
+            {% for cliente in clientes %}
 
-            <td>{{ cliente.data }}</td>
-            <td>{{ cliente.razao_social }}</td>
-            <td>{{ cliente.cnpj }}</td>
-            <td>{{ cliente.ins_estadual }}</td>
-            <td>{{ cliente.data_nascimento }}</td>
-            <td>{{ cliente.cep }}</td>
-            <td>{{ cliente.endereco }}</td>
-            <td>{{ cliente.bairro }}</td>
-            <td>{{ cliente.telefone }}</td>
-            <td>{{ cliente.contato }}</td>
-            <td>{{ cliente.email }}</td>
-            <td>{{ cliente.ponto_referencia }}</td>
-            <td>{{ cliente.prazo_pagamento }}</td>
-            <td>{{ cliente.representante }}</td>
-            <td>{{ cliente.posicao }}</td>
-            <td>{{ cliente.destino_carro }}</td>
-            <td>{{ cliente.pedido }}</td>
+            <tr>
 
-        </tr>
+                <td>{{ cliente.data }}</td>
+                <td>{{ cliente.razao_social }}</td>
+                <td>{{ cliente.cnpj }}</td>
+                <td>{{ cliente.ins_estadual }}</td>
+                <td>{{ cliente.data_nascimento }}</td>
+                <td>{{ cliente.cep }}</td>
+                <td>{{ cliente.endereco }}</td>
+                <td>{{ cliente.bairro }}</td>
+                <td>{{ cliente.telefone }}</td>
+                <td>{{ cliente.contato }}</td>
+                <td>{{ cliente.email }}</td>
+                <td>{{ cliente.ponto_referencia }}</td>
+                <td>{{ cliente.prazo_pagamento }}</td>
+                <td>{{ cliente.representante }}</td>
+                <td>{{ cliente.posicao }}</td>
+                <td>{{ cliente.destino_carro }}</td>
+                <td>{{ cliente.pedido }}</td>
 
-        {% endfor %}
+            </tr>
 
-    </table>
+            {% endfor %}
+
+        </table>
+
+    </div>
 
 </body>
+
 </html>
