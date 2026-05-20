@@ -113,6 +113,16 @@ def cadastro():
         data_atual=datetime.now().strftime("%Y-%m-%d")
     )
 
+@app.route("/relatorios")
+def relatorios():
+
+    clientes = Cliente.query.all()
+
+    return render_template(
+        "relatorios.html",
+        clientes=clientes
+    )
+
 
 # CRIAR TABELAS AUTOMATICAMENTE
 with app.app_context():

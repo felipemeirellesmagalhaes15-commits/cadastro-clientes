@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Relatórios</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background: #f4f4f4;
+            padding:20px;
+        }
+
+        h1{
+            color:#ff6600;
+        }
+
+        table{
+            width:100%;
+            border-collapse: collapse;
+            background:white;
+        }
+
+        th, td{
+            border:1px solid #ccc;
+            padding:10px;
+            text-align:left;
+        }
+
+        th{
+            background:#ff6600;
+            color:white;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <h1>Relatório de Cadastros</h1>
+
+    <table>
+
+        <tr>
+
+            <th>Data</th>
+            <th>Razão Social</th>
+            <th>CNPJ</th>
+            <th>Telefone</th>
+            <th>Representante</th>
+
+        </tr>
+
+        {% for cliente in clientes %}
+
+        <tr>
+
+            <td>{{ cliente.data }}</td>
+            <td>{{ cliente.razao_social }}</td>
+            <td>{{ cliente.cnpj }}</td>
+            <td>{{ cliente.telefone }}</td>
+            <td>{{ cliente.representante }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
