@@ -52,25 +52,25 @@ def cadastro():
         # SALVAR NO BANCO
         novo_cliente = Cliente(
 
-            data=dados["data"],
-            razao_social=dados["razao_social"],
-            cnpj=dados["cnpj"],
-            ins_estadual=dados["ins_estadual"],
-            data_nascimento=dados["data_nascimento"],
-            cep=dados["cep"],
-            endereco=dados["endereco"],
-            bairro=dados["bairro"],
-            telefone=dados["telefone"],
-            contato=dados["contato"],
-            email=dados["email"],
-            ponto_referencia=dados["ponto_referencia"],
-            prazo_pagamento=dados["prazo_pagamento"],
-            representante=dados["representante"],
-            posicao=dados["posicao"],
-            destino_carro=dados["destino_carro"],
-            pedido=dados["pedido"]
+    data=dados.get("data"),
+    razao_social=dados.get("razao_social"),
+    cnpj=dados.get("cnpj"),
+    ins_estadual=dados.get("ins_estadual"),
+    data_nascimento=dados.get("data_nascimento"),
+    cep=dados.get("cep"),
+    endereco=dados.get("endereco"),
+    bairro=dados.get("bairro"),
+    telefone=dados.get("telefone"),
+    contato=dados.get("contato"),
+    email=dados.get("email"),
+    ponto_referencia=dados.get("ponto_referencia"),
+    prazo_pagamento=dados.get("prazo_pagamento"),
+    representante=dados.get("representante"),
+    posicao=dados.get("posicao"),
+    destino_carro=dados.get("destino_carro"),
+    pedido=dados.get("pedido")
 
-        )
+)
 
         db.session.add(novo_cliente)
         db.session.commit()
