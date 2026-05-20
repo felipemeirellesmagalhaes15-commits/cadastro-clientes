@@ -53,10 +53,6 @@ def cadastro():
         return f"Cadastro salvo com sucesso! PDF gerado para {razao_social}"
 
     return render_template(
-    "index.html",
-    data_atual=datetime.now().strftime("%Y-%m-%d")
-)
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+        "index.html",
+        data_atual=datetime.now().strftime("%Y-%m-%d")
+    )
