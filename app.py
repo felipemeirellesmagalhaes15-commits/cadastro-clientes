@@ -124,6 +124,76 @@ def relatorios():
     )
 
 
+@app.route("/exportar_pdf")
+def exportar_pdf():
+
+    clientes = Cliente.query.all()
+
+    nome_pdf = "relatorio_clientes.pdf"
+
+    pdf = canvas.Canvas(nome_pdf)
+
+    y = 800
+
+    pdf.setFont("Helvetica-Bold", 16)
+    pdf.drawString(50, y, "RELATÓRIO DE CLIENTES")
+
+    y -= 40
+
+    for cliente in clientes:
+
+        pdf.setFont("Helvetica-Bold", 12)
+        pdf.drawString(50, y, f"RAZÃO SOCIAL: {cliente.razao_social}")
+
+        y -= 20
+
+        pdf.setFont("Helvetica", 10)
+
+        dados = [
+
+            f"DATA: {cliente.data}",
+            f"CNPJ: {cliente.cnpj}",
+            f"INSCRIÇÃO ESTADUAL: {cliente.ins_estadual}",
+            f"DATA NASCIMENTO: {cliente.data_nascimento}",
+            f"CEP: {cliente.cep}",
+            f"ENDEREÇO: {cliente.endereco}",
+            f"BAIRRO: {cliente.bairro}",
+            f"TELEFONE: {cliente.telefone}",
+            f"CONTATO: {cliente.contato}",
+            f"EMAIL: {cliente.email}",
+            f"PONTO REFERÊNCIA: {cliente.ponto_referencia}",
+            f"PRAZO PAGAMENTO: {cliente.prazo_pagamento}",
+            f"REPRESENTANTE: {cliente.representante}",
+            f"POSIÇÃO: {cliente.posicao}",
+            f"DESTINO CARRO: {cliente.destino_carro}",
+            f"PEDIDO: {cliente.pedido}"
+
+        ]
+
+        for item in dados:
+
+            pdf.drawString(60, y, item)
+
+            y -= 15
+
+        y -= 20
+
+        if y < 100:
+
+            pdf.showPage()
+
+            y = 800
+
+    pdf.save()
+
+    from flask import send_file
+
+    return send_file(
+        nome_pdf,
+        as_attachment=True
+    )
+
+
 # CRIAR TABELAS AUTOMATICAMENTE
 with app.app_context():
     db.create_all()
