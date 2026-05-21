@@ -35,6 +35,7 @@ class Cliente(db.Model):
     posicao = db.Column(db.String(100))
     destino_carro = db.Column(db.String(100))
     pedido = db.Column(db.String(200))
+    status = db.Column(db.String(50), default="PENDENTE")
 
 
 @app.route("/")
@@ -116,7 +117,7 @@ def cadastro():
 @app.route("/relatorios")
 def relatorios():
 
-    clientes = Cliente.query.all()
+    clientes = Cliente.query.filter_by(status="PENDENTE").all()
 
     return render_template(
         "relatorios.html",
@@ -124,67 +125,58 @@ def relatorios():
     )
 
 
-@app.route("/exportar_pdf")
-def exportar_pdf():
+@app.route("/exportar_pdf/<int:id>")
+def exportar_pdf(id):
 
-    clientes = Cliente.query.all()
+    cliente = Cliente.query.get_or_404(id)
 
-    nome_pdf = "relatorio_clientes.pdf"
+    nome_pdf = f"{cliente.razao_social}.pdf"
 
     pdf = canvas.Canvas(nome_pdf)
 
     y = 800
 
     pdf.setFont("Helvetica-Bold", 16)
-    pdf.drawString(50, y, "RELATÓRIO DE CLIENTES")
+    pdf.drawString(50, y, "CADASTRO DE CLIENTE")
 
     y -= 40
 
-    for cliente in clientes:
+    dados = [
 
-        pdf.setFont("Helvetica-Bold", 12)
-        pdf.drawString(50, y, f"RAZÃO SOCIAL: {cliente.razao_social}")
+        f"DATA: {cliente.data}",
+        f"RAZÃO SOCIAL: {cliente.razao_social}",
+        f"CNPJ: {cliente.cnpj}",
+        f"INSCRIÇÃO ESTADUAL: {cliente.ins_estadual}",
+        f"DATA NASCIMENTO: {cliente.data_nascimento}",
+        f"CEP: {cliente.cep}",
+        f"ENDEREÇO: {cliente.endereco}",
+        f"BAIRRO: {cliente.bairro}",
+        f"TELEFONE: {cliente.telefone}",
+        f"CONTATO: {cliente.contato}",
+        f"EMAIL: {cliente.email}",
+        f"PONTO REFERÊNCIA: {cliente.ponto_referencia}",
+        f"PRAZO PAGAMENTO: {cliente.prazo_pagamento}",
+        f"REPRESENTANTE: {cliente.representante}",
+        f"POSIÇÃO: {cliente.posicao}",
+        f"DESTINO CARRO: {cliente.destino_carro}",
+        f"PEDIDO: {cliente.pedido}"
 
-        y -= 20
+    ]
 
-        pdf.setFont("Helvetica", 10)
+    for item in dados:
 
-        dados = [
+        pdf.setFont("Helvetica", 11)
 
-            f"DATA: {cliente.data}",
-            f"CNPJ: {cliente.cnpj}",
-            f"INSCRIÇÃO ESTADUAL: {cliente.ins_estadual}",
-            f"DATA NASCIMENTO: {cliente.data_nascimento}",
-            f"CEP: {cliente.cep}",
-            f"ENDEREÇO: {cliente.endereco}",
-            f"BAIRRO: {cliente.bairro}",
-            f"TELEFONE: {cliente.telefone}",
-            f"CONTATO: {cliente.contato}",
-            f"EMAIL: {cliente.email}",
-            f"PONTO REFERÊNCIA: {cliente.ponto_referencia}",
-            f"PRAZO PAGAMENTO: {cliente.prazo_pagamento}",
-            f"REPRESENTANTE: {cliente.representante}",
-            f"POSIÇÃO: {cliente.posicao}",
-            f"DESTINO CARRO: {cliente.destino_carro}",
-            f"PEDIDO: {cliente.pedido}"
-
-        ]
-
-        for item in dados:
-
-            pdf.drawString(60, y, item)
-
-            y -= 15
+        pdf.drawString(50, y, item)
 
         y -= 20
-
-        if y < 100:
-
-            pdf.showPage()
-
-            y = 800
 
     pdf.save()
+
+    # ALTERAR STATUS
+    cliente.status = "EXPORTADO"
+
+    db.session.commit()
 
     from flask import send_file
 
