@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from reportlab.pdfgen import canvas
 from datetime import datetime
 import os
@@ -35,7 +35,6 @@ class Cliente(db.Model):
     posicao = db.Column(db.String(100))
     destino_carro = db.Column(db.String(100))
     pedido = db.Column(db.String(200))
-    status = db.Column(db.String(50), default="PENDENTE")
 
 
 @app.route("/")
@@ -53,71 +52,41 @@ def cadastro():
         # SALVAR NO BANCO
         novo_cliente = Cliente(
 
-    data=dados.get("data"),
-    razao_social=dados.get("razao_social"),
-    cnpj=dados.get("cnpj"),
-    ins_estadual=dados.get("ins_estadual"),
-    data_nascimento=dados.get("data_nascimento"),
-    cep=dados.get("cep"),
-    endereco=dados.get("endereco"),
-    bairro=dados.get("bairro"),
-    telefone=dados.get("telefone"),
-    contato=dados.get("contato"),
-    email=dados.get("email"),
-    ponto_referencia=dados.get("ponto_referencia"),
-    prazo_pagamento=dados.get("prazo_pagamento"),
-    representante=dados.get("representante"),
-    posicao=dados.get("posicao"),
-    destino_carro=dados.get("destino_carro"),
-    pedido=dados.get("pedido")
+            data=dados.get("data"),
+            razao_social=dados.get("razao_social"),
+            cnpj=dados.get("cnpj"),
+            ins_estadual=dados.get("ins_estadual"),
+            data_nascimento=dados.get("data_nascimento"),
+            cep=dados.get("cep"),
+            endereco=dados.get("endereco"),
+            bairro=dados.get("bairro"),
+            telefone=dados.get("telefone"),
+            contato=dados.get("contato"),
+            email=dados.get("email"),
+            ponto_referencia=dados.get("ponto_referencia"),
+            prazo_pagamento=dados.get("prazo_pagamento"),
+            representante=dados.get("representante"),
+            posicao=dados.get("posicao"),
+            destino_carro=dados.get("destino_carro"),
+            pedido=dados.get("pedido")
 
-)
+        )
 
         db.session.add(novo_cliente)
         db.session.commit()
 
-        # GERAR PDF
-        representante = dados["representante"]
-        razao_social = dados["razao_social"]
-
-        pasta = f"pdfs/{representante}"
-
-        os.makedirs(pasta, exist_ok=True)
-
-        nome_pdf = f"{pasta}/{razao_social}.pdf"
-
-        pdf = canvas.Canvas(nome_pdf)
-
-        y = 800
-
-        pdf.setFont("Helvetica-Bold", 16)
-        pdf.drawString(50, y, "Cadastro de Clientes - Fazenda das Antas")
-
-        y -= 40
-
-        for campo, valor in dados.items():
-
-            pdf.setFont("Helvetica", 12)
-
-            texto = f"{campo}: {valor}"
-
-            pdf.drawString(50, y, texto)
-
-            y -= 25
-
-        pdf.save()
-
-        return f"Cadastro salvo com sucesso para {razao_social}!"
+        return f"Cadastro salvo com sucesso para {dados.get('razao_social')}!"
 
     return render_template(
         "index.html",
         data_atual=datetime.now().strftime("%Y-%m-%d")
     )
 
+
 @app.route("/relatorios")
 def relatorios():
 
-    clientes = Cliente.query.filter_by(status="PENDENTE").all()
+    clientes = Cliente.query.all()
 
     return render_template(
         "relatorios.html",
@@ -173,13 +142,6 @@ def exportar_pdf(id):
 
     pdf.save()
 
-    # ALTERAR STATUS
-    cliente.status = "EXPORTADO"
-
-    db.session.commit()
-
-    from flask import send_file
-
     return send_file(
         nome_pdf,
         as_attachment=True
@@ -189,3 +151,7 @@ def exportar_pdf(id):
 # CRIAR TABELAS AUTOMATICAMENTE
 with app.app_context():
     db.create_all()
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
