@@ -6,8 +6,8 @@ import os
 
 app = Flask(__name__)
 
-# CONFIG BANCO POSTGRESQL
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://cadastros_0uor_user:f5wUSv5tApZlp8QBhkb9J4hVeWX5jKGT@dpg-d86rkj7avr4c73edjl60-a.oregon-postgres.render.com/cadastros_0uor"
+# NOVO BANCO POSTGRESQL
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://cadastro_clientes_db_user:V2ppf9I5KFQJBgCMzSC19jZGxWboqYnL@dpg-d87jqg7avr4c73bneit0-a.oregon-postgres.render.com/cadastro_clientes_db"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -36,6 +36,9 @@ class Cliente(db.Model):
     destino_carro = db.Column(db.String(100))
     pedido = db.Column(db.String(200))
 
+    # STATUS
+    status = db.Column(db.String(50), default="PENDENTE")
+
 
 @app.route("/")
 def inicio():
@@ -49,7 +52,6 @@ def cadastro():
 
         dados = request.form
 
-        # SALVAR NO BANCO
         novo_cliente = Cliente(
 
             data=dados.get("data"),
@@ -86,7 +88,7 @@ def cadastro():
 @app.route("/relatorios")
 def relatorios():
 
-    clientes = Cliente.query.all()
+    clientes = Cliente.query.filter_by(status="PENDENTE").all()
 
     return render_template(
         "relatorios.html",
@@ -142,13 +144,18 @@ def exportar_pdf(id):
 
     pdf.save()
 
+    # ALTERA STATUS
+    cliente.status = "EXPORTADO"
+
+    db.session.commit()
+
     return send_file(
         nome_pdf,
         as_attachment=True
     )
 
 
-# CRIAR TABELAS AUTOMATICAMENTE
+# CRIA TABELAS AUTOMATICAMENTE
 with app.app_context():
     db.create_all()
 
