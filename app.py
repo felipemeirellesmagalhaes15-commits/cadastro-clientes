@@ -114,25 +114,28 @@ def exportar_pdf(id):
 
     dados = [
 
-        f"DATA: {cliente.data}",
-        f"RAZÃO SOCIAL: {cliente.razao_social}",
-        f"CNPJ: {cliente.cnpj}",
-        f"INSCRIÇÃO ESTADUAL: {cliente.ins_estadual}",
-        f"DATA NASCIMENTO: {cliente.data_nascimento}",
-        f"CEP: {cliente.cep}",
-        f"ENDEREÇO: {cliente.endereco}",
-        f"BAIRRO: {cliente.bairro}",
-        f"TELEFONE: {cliente.telefone}",
-        f"CONTATO: {cliente.contato}",
-        f"EMAIL: {cliente.email}",
-        f"PONTO REFERÊNCIA: {cliente.ponto_referencia}",
-        f"PRAZO PAGAMENTO: {cliente.prazo_pagamento}",
-        f"REPRESENTANTE: {cliente.representante}",
-        f"POSIÇÃO: {cliente.posicao}",
-        f"DESTINO CARRO: {cliente.destino_carro}",
-        f"PEDIDO: {cliente.pedido}"
+    f"DATA: {cliente.data.upper()}",
+    f"RAZÃO SOCIAL: {cliente.razao_social.upper()}",
+    f"CNPJ: {cliente.cnpj.upper()}",
+    f"INSCRIÇÃO ESTADUAL: {cliente.ins_estadual.upper()}",
+    f"DATA NASCIMENTO: {cliente.data_nascimento.upper()}",
+    f"CEP: {cliente.cep.upper()}",
+    f"ENDEREÇO: {cliente.endereco.upper()}",
+    f"BAIRRO: {cliente.bairro.upper()}",
+    f"TELEFONE: {cliente.telefone.upper()}",
+    f"CONTATO: {cliente.contato.upper()}",
 
-    ]
+    # EMAIL MINÚSCULO
+    f"EMAIL: {cliente.email.lower()}",
+
+    f"PONTO REFERÊNCIA: {cliente.ponto_referencia.upper()}",
+    f"PRAZO PAGAMENTO: {cliente.prazo_pagamento.upper()}",
+    f"REPRESENTANTE: {cliente.representante.upper()}",
+    f"POSIÇÃO: {cliente.posicao.upper()}",
+    f"DESTINO CARRO: {cliente.destino_carro.upper()}",
+    f"PEDIDO: {cliente.pedido.upper()}"
+
+]
 
     for item in dados:
 
