@@ -106,5 +106,31 @@
 
 </div>
 
+<script>
+
+function aplicarMascaraData(campo){
+
+    campo.addEventListener("input", function(){
+
+        let valor = campo.value.replace(/\D/g,'');
+
+        if(valor.length > 2){
+            valor = valor.slice(0,2) + '/' + valor.slice(2);
+        }
+
+        if(valor.length > 5){
+            valor = valor.slice(0,5) + '/' + valor.slice(5,9);
+        }
+
+        campo.value = valor;
+    });
+}
+
+aplicarMascaraData(document.querySelector('input[name="data"]'));
+
+aplicarMascaraData(document.querySelector('input[name="data_nascimento"]'));
+
+</script>
+
 </body>
 </html>
