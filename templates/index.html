@@ -40,7 +40,7 @@
         <input type="text" name="ins_estadual">
 
         <label>Data Nascimento</label>
-        <input type="date" name="data_nascimento">
+        <input type="text" name="data_nascimento" placeholder="DD/MM/AAAA"maxlength="10">
 
         <label>CEP</label>
         <input type="text" name="cep">
@@ -105,6 +105,32 @@
     <form method="POST">
 
 </div>
+
+<script>
+
+function mascaraData(campo){
+
+    campo.addEventListener("input", function(){
+
+        let valor = campo.value.replace(/\D/g,'');
+
+        if(valor.length > 2){
+            valor = valor.substring(0,2) + '/' + valor.substring(2);
+        }
+
+        if(valor.length > 5){
+            valor = valor.substring(0,5) + '/' + valor.substring(5,9);
+        }
+
+        campo.value = valor;
+    });
+}
+
+mascaraData(document.querySelector('input[name="data"]'));
+
+mascaraData(document.querySelector('input[name="data_nascimento"]'));
+
+</script>
 
 </body>
 </html>
