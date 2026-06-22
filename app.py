@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 # NOVO BANCO POSTGRESQL
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://cadastro_clientes_db_user:V2ppf9I5KFQJBgCMzSC19jZGxWboqYnL@dpg-d87jqg7avr4c73bneit0-a.oregon-postgres.render.com/cadastro_clientes_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://cadastros_t4v3_user:gHVzGQgrLZQ1CFNtVSQP4hKHvLvtPVi7@dpg-d8sjd2b6sc1c73cinr5g-a/cadastros_t4v3"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
